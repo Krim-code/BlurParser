@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.chrome.service import Service
 import os
+from pyvirtualdisplay import Display
 
 from selenium.webdriver.common.by import By
 
@@ -79,7 +80,7 @@ def get_chromedriver(use_proxy=False, user_agent=None):
     if user_agent:
         chrome_options.add_argument(f'--user-agent={user_agent}')
 
-    s = Service(executable_path=os.path.normpath('C://Users//Elros//Documents//reviProjects//BlurParser//utils//chromedriver.exe'))
+    s = Service(executable_path=os.path.normpath('C://Users//Redmi//Documents//Work//VladWeb//BlurParser//utils//chromedriver.exe'))
     driver = webdriver.Chrome(
         service=s,
         options=chrome_options
@@ -99,10 +100,12 @@ def extract_data_from_a_tag(a_tag):
 
 # Функция для скролла страницы
 def scroll_down(driver):
-    driver.execute_script('document.querySelector(".interactive").scrollTop += 100000')
+    driver.execute_script('document.querySelector(".interactive").scrollTop += 600')
 
 
 def main():
+    display = Display(visible=False, size=(800, 600))
+    display.start()
     processed_data = {}
     driver = get_chromedriver(use_proxy=True,
                               user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15')
@@ -124,7 +127,7 @@ def main():
                 if extracted_data[0] not in processed_data:
                     processed_data[extracted_data[0]] = extracted_data[1:]  # Здесь ты можешь добавить код для обработки текста
 
-            if len(processed_data) >= 1460:
+            if len(processed_data) >= 100:
                 break
             # Сделать скролл
             scroll_down(driver)
@@ -139,6 +142,7 @@ def main():
     finally:
         driver.close()
         driver.quit()
+        display.stop()
 
     with open('output.json', 'w', encoding='utf-8') as json_file:
         json.dump(processed_data, json_file, ensure_ascii=False, indent=2)
