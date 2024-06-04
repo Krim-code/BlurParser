@@ -10,10 +10,10 @@ from pyvirtualdisplay import Display
 
 from selenium.webdriver.common.by import By
 
-PROXY_HOST = '178.130.53.108'
-PROXY_PORT = 64468  # Your proxy port
-PROXY_USER = '6SnbUcBe'
-PROXY_PASS = 'AtcGLZjs'
+PROXY_HOST = 'ТУТ IP'
+PROXY_PORT = 2222  # Your proxy port
+PROXY_USER = 'USER'
+PROXY_PASS = 'PASSWORD'
 
 manifest_json = """
 {
